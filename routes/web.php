@@ -16,8 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('categorie', CategoryController::class);
-    Route::get('/categories/{slug}', [CategoryController::class, 'showBySlug']);
+    Route::resource('category', CategoryController::class);
+    // Route::get('/category/{slug}', [CategoryController::class, 'showBySlug']);
 });
 
 require __DIR__.'/auth.php';
