@@ -14,8 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::getCategory();
-        return view('categories.index', compact($category));
+        $category = Category::latest()->paginate(10);
+        return view('category.index', compact($category));
+
+        
     }
 
     /**
@@ -23,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('category.create');
     }
 
     /**
@@ -31,14 +33,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $request -> validate([
-            'nom'=>'required|unique:categorie|max:255',
-            'slug' => 'required|unique:categorie|max:255'
-        ]);
+        
 
-        Category::createCategory($request->only(['nom', 'slug']));
+        Category::create($request->validated());
 
-        return redirect('categorie.index')->with('success','Categorie ajouter avec succès');
+        return redirect('category.index')->with('success','Categorie ajouter avec succès');
     }
 
     /**
@@ -46,48 +45,47 @@ class CategoryController extends Controller
      */
     public function show(Category $categorie)
     { 
-        return view('categories.show', compact('categorie'));
+        return view('category.show', compact('category'));
     }
 
     public function showBySlug($slug){
-        $categorie = Category::getBySlug($slug);
-        if (!$categorie) {
+        $category = Category::all($slug);
+        if (!$category) {
             return response()->json(['message' => 'Catégorie non trouvée'], 404);
         }
 
-        return response()->json($categorie);
+        return response()->json($category);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $categorie)
+    public function edit(Category $category)
     {
-        return view('categories.edit', compact('categorie'));
+        
+        return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $categorie)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'nom' => 'required|max:255|unique:categories,nom,' . $categorie->id,
-            'slug' => 'required|max:50|unique:categorie,slug' . $categorie->id ,
-        ]);
 
-        $categorie->updateCategorie($request);
+        $category->update($request->validated());
 
-        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour.');
+       
+
+        return redirect()->route('category.index')->with('success', 'Catégorie mise à jour.');
     
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $categorie)
+    public function destroy(Category $category)
     {
-        $categorie->deleteCategorie();
-        return redirect()->route('categories.index')->with('success', 'Catégorie supprimée.');
+        $category->delete();
+        return redirect()->route('category.index')->with('success', 'Catégorie supprimée.');
     }
 }
