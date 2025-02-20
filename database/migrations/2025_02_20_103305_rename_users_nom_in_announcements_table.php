@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commentaire', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('announcements', function (Blueprint $table) {
+            $table->renameColumn('users_nom', 'users_name');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commentaire');
+        Schema::table('announcements', function (Blueprint $table) {
+            $table->renameColumn('users_name', 'users_nom');
+        });
     }
 };
