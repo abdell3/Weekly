@@ -5,7 +5,7 @@
     <h2 class="text-2xl font-bold mb-4">Gestion des Catégories</h2>
 
     
-    <form action="{{ route('categories.store') }}" method="POST" class="mb-6">
+    <form action="{{ route('category.store') }}" method="POST" class="mb-6">
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <input type="text" name="nom" placeholder="Nom de la catégorie" class="border p-2 w-full rounded" required>
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $categorie)
+            @foreach ($category as $categorie)
             <tr class="border">
                 <td class="p-2">{{ $categorie->nom }}</td>
                 <td class="p-2">{{ $categorie->slug }}</td>

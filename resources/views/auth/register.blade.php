@@ -9,13 +9,11 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-
         <div>
-            <x-input-label for="image" :value="__('image')" />
-            <x-text-input id="image" class="block mt-1 w-full" type="text" name="image" :value="old('image')" required autofocus autocomplete="image" />
-            <x-input-error :messages="$errors->get('image')" class="mt-2" />
+            <label for="image">Image</label>
+            <input id="image" type="file" name="image" required>
         </div>
-
+       
 
         <div>
             <x-input-label for="telephone" :value="__('telephone')" />
@@ -34,10 +32,7 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -45,11 +40,7 @@
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
+            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
