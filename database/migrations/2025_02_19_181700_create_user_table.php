@@ -25,7 +25,7 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table){
-            $table->foreignId('role_id')->constrained(table: 'role', indexName: 'users_role_id');
+            $table->foreignId('role_id')->default(1)->constrained(table: 'role', indexName: 'users_role_id');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

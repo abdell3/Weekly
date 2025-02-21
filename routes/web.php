@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::get('/category', [CategoryController::class, 'edit'])->name('category.edit');
     Route::patch('/category', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category', [CategoryController::class, 'destroy'])->name('category.destroy');
