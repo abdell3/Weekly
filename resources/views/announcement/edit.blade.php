@@ -4,7 +4,7 @@
 <div class="container mx-auto p-6">
     <h2 class="text-2xl font-bold mb-4">Modifier l'announcement</h2>
 
-    <form action="{{ route('announcement.update', $announcement->id) }}" method="POST">
+    <form action="{{ route('announcements.update', $announcement->id) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="text" name="titre" value="{{ $announcement->titre }}" class="border p-2 w-full rounded" required>

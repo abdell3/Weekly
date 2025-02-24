@@ -13,8 +13,9 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $annonces = Announcement::all();
-        return view('announcement.index', compact('announcement'));
+        $annoncess = Announcement::with('announcements.user')->get();
+        // $announcement = Announcement::all();
+        return view('announcements.index', compact('announcements'));
     }
 
     /**

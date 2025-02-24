@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/announcement', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
     Route::resource('announcement', AnnouncementController::class);
 
+
+
+    Route::get('/annonces/{annonce}/Comments', [CommentController::class, 'index'])->name('Comments.index');
+    Route::get('/Comments/{Comment}', [CommentController::class, 'show'])->name('Comments.show');
+    Route::get('/annonces/{annonce}/Comments/create', [CommentController::class, 'create'])->name('Comments.create');
+    Route::post('/annonces/{annonce}/Comments', [CommentController::class, 'store'])->name('Comments.store');
+    Route::get('/Comments/{Comment}/edit', [CommentController::class, 'edit'])->name('Comments.edit');
+    Route::put('/Comments/{Comment}', [CommentController::class, 'update'])->name('Comments.update');
+    Route::delete('/Comments/{Comment}', [CommentController::class, 'destroy'])->name('Comments.destroy');
 }
 
 
