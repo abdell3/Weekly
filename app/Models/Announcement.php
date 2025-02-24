@@ -11,4 +11,16 @@ class Announcement extends Model
     use HasFactory;
 
     protected $fillable = ['titre', 'description', 'slug', 'prix', 'image', 'status'];
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
+
+
+
+
+

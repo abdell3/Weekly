@@ -31,6 +31,10 @@
             <main>
                 @yield('content')
             </main>
+
+            <div class="container mx-auto p-6">
+                @yield('contents')
+            </div>
         </div>
     </body>
 </html>

@@ -6,7 +6,7 @@ use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Announcement;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 
 
 class CommentController extends Controller
@@ -32,15 +32,15 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request, $annonceId)
+    public function store(StoreCommentRequest $request, $announcementId)
     {
         Comment::create([
             'contenu' => $request->contenu,
             'user_id' => Auth::id(),
-            'annonce_id' => $annonceId
+            'annonce_id' => $announcementId
         ]);
 
-        return redirect('comments.index')->back()->with('success', 'Commentaire ajouté avec succès !');
+        return redirect()->route('announcement.show',$announcementId)->with('success', 'Commentaire ajouté avec succès !');
     }
 
     /**
@@ -56,7 +56,10 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        if (Auth::id() !== $comment->user_id) {
+            return redirect()->back()->with('error', "Error!");
+        }
+        return view('comments.edit', compact('comment'));
     }
 
     /**
@@ -64,7 +67,18 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        if (Auth::id() !== $comment->user_id) {
+            return redirect()->back()->with('error', "Vous ne pouvez pas modifier ce commentaire !");
+        }
+        $request->validate($request[]);
+
+
+        $comment->update([
+            'contenu' => $request->contenu
+        ]);
+
+
+        return redirect()->route('annonces.show', $comment->annonce_id)->with('success', 'Done.');
     }
 
     /**
@@ -72,6 +86,15 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        if (Auth::id() !== $comment->user_id) {
+            return redirect()->back()->with('error', "error");
+        }
+
+        $comment->delete();
+        
+        
+        return redirect()->back()->with('success', 'Done.'); 
+
+
     }
 }
